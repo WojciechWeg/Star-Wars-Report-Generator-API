@@ -1,10 +1,10 @@
 package com.wojtek.api.StarWarsReportGeneratorAPI.controllers;
 
+import com.wojtek.api.StarWarsReportGeneratorAPI.exceptions.NotFoundException;
 import com.wojtek.api.StarWarsReportGeneratorAPI.models.Report;
 import com.wojtek.api.StarWarsReportGeneratorAPI.models.ReportQuery;
 import com.wojtek.api.StarWarsReportGeneratorAPI.reposotories.ReportRepository;
 import com.wojtek.api.StarWarsReportGeneratorAPI.services.ReportService;
-import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,9 +30,9 @@ public class ReportController {
     }
 
     @GetMapping({"/{report_id}"})
-    public Report getReport(@PathVariable Long report_id) throws NotFound {
-
-        return reportRepository.findById(report_id).orElseThrow(NotFound::new);
+    public Report getReport(@PathVariable Long report_id) {
+            return reportRepository.findById(report_id)
+                    .orElseThrow(() -> new NotFoundException("No such report"));
 
     }
 
