@@ -1,7 +1,6 @@
 package com.wojtek.api.StarWarsReportGeneratorAPI.models;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -9,6 +8,10 @@ import javax.persistence.*;
 @Table(name="reports")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
+@Builder
 public class Report {
 
     @Id
