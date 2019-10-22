@@ -18,15 +18,6 @@ public class APIService {
     public APIService() {
     }
 
-    public JsonObject getBuilder(String path, String searchquery) throws Exception {
-        HttpGet httpGet;
-        if (searchquery == null) {
-            httpGet = new HttpGet("https://swapi.co/api/" + path + "/");
-        } else {
-            httpGet = new HttpGet("https://swapi.co/api/" + path + "/?search=" + searchquery);
-        }
-        return getRequest(httpGet);
-    }
 
     public JsonObject getBuilder(String path) throws Exception {
 
@@ -34,6 +25,15 @@ public class APIService {
 
         return getRequest(httpGet);
     }
+
+    public JsonObject getBuilderFullPath(String fullPath) throws Exception {
+
+        HttpGet httpGet = new HttpGet(fullPath );
+
+        return getRequest(httpGet);
+    }
+
+
 
     public JsonObject getRequest(HttpGet getRequest) throws IOException {
 

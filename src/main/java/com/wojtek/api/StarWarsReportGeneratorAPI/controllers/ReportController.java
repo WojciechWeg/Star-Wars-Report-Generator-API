@@ -47,7 +47,7 @@ public class ReportController {
     }
 
     @PutMapping({"/{report_id}"})
-    public void createNewReport(@PathVariable Long report_id, @RequestBody ReportQuery reportQuery){
+    public void createNewReport(@PathVariable Long report_id, @RequestBody ReportQuery reportQuery) throws Exception {
 
         reportService.createReport(report_id,reportQuery);
 

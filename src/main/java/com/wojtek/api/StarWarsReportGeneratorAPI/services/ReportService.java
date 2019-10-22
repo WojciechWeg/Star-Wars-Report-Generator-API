@@ -2,6 +2,8 @@ package com.wojtek.api.StarWarsReportGeneratorAPI.services;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.wojtek.api.StarWarsReportGeneratorAPI.exceptions.NotFoundException;
+import com.wojtek.api.StarWarsReportGeneratorAPI.exceptions.PlanetHasNoResidentsExceptions;
 import com.wojtek.api.StarWarsReportGeneratorAPI.models.Report;
 import com.wojtek.api.StarWarsReportGeneratorAPI.models.ReportQuery;
 import com.wojtek.api.StarWarsReportGeneratorAPI.reposotories.ReportRepository;
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +29,10 @@ public class ReportService {
         this.planetNamePlanetLinkMap = new HashMap<>();
     }
 
-    public void createReport(Long report_id, ReportQuery reportQuery) {
+    public void createReport(Long report_id, ReportQuery reportQuery) throws Exception {
+
+
+            System.out.println(planetNamePlanetLinkMap);
 
             Report report = Report.builder()
                     .report_id(report_id)
@@ -33,8 +40,30 @@ public class ReportService {
                     .query_criteria_planet_name(reportQuery.getQuery_criteria_planet_name())
                     .build();
 
+            if(!planetNamePlanetLinkMap.containsKey(reportQuery.getQuery_criteria_planet_name()))
+                throw new NotFoundException("There is no such planet.");
+
+            String planetUrl = planetNamePlanetLinkMap.get(reportQuery.getQuery_criteria_planet_name());
+            Long planetId = retrieveIdFromLastSegment(planetUrl);
+
+            report.setPlanet_id(planetId);
+            report.setPlanet_name(reportQuery.getQuery_criteria_planet_name());
+
+            JsonArray residentArray = apiService.getBuilderFullPath(planetUrl).getAsJsonArray("residents");
+
+            if(residentArray.size()==0)
+                throw new PlanetHasNoResidentsExceptions("This planet has no residents.");
+
+
             reportRepository.save(report);
 
+    }
+
+    private Long retrieveIdFromLastSegment(String planetUrl) throws URISyntaxException {
+        URI uri = new URI(planetUrl);
+        String[] segments = uri.getPath().split("/");
+        String idStr = segments[segments.length-1];
+        return Long.parseLong(idStr);
     }
 
     public void startPhase() throws Exception {
@@ -68,8 +97,8 @@ public class ReportService {
     private void collectPlanetInfo(JsonArray planetArray) {
         for (int i = 0; i < planetArray.size(); i++) {
             JsonObject planetJson = planetArray.get(i).getAsJsonObject();
-            String planetName = planetJson.get("name").toString();
-            String planetUrl = planetJson.get("url").toString();
+            String planetName = planetJson.get("name").toString().replaceAll("\"","");
+            String planetUrl = planetJson.get("url").toString().replaceAll("\"","");
             planetNamePlanetLinkMap.put(planetName, planetUrl);
         }
 
