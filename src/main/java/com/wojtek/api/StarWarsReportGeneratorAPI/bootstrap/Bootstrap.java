@@ -3,6 +3,7 @@ package com.wojtek.api.StarWarsReportGeneratorAPI.bootstrap;
 
 import com.wojtek.api.StarWarsReportGeneratorAPI.models.Report;
 import com.wojtek.api.StarWarsReportGeneratorAPI.reposotories.ReportRepository;
+import com.wojtek.api.StarWarsReportGeneratorAPI.services.ReportService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -10,19 +11,22 @@ import org.springframework.stereotype.Component;
 public class Bootstrap implements CommandLineRunner {
 
     private final ReportRepository reportRepository;
+    private final ReportService reportService;
 
-    public Bootstrap(ReportRepository reportRepository) {
+    public Bootstrap(ReportRepository reportRepository, ReportService reportService) {
         this.reportRepository = reportRepository;
+        this.reportService = reportService;
     }
 
     @Override
     public void run(String... args) throws Exception {
+        reportService.startPhase();
 
         loadReports();
 
     }
 
-    private void loadReports(){
+    private void loadReports() throws Exception {
 
         Report report1 =  Report.builder()
                 .report_id(1L)
@@ -48,8 +52,6 @@ public class Bootstrap implements CommandLineRunner {
 
         reportRepository.save(report1);
         reportRepository.save(report2);
-
-
 
 
     }
