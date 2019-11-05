@@ -3,10 +3,7 @@ package com.wojtek.api.StarWarsReportGeneratorAPI.services;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.wojtek.api.StarWarsReportGeneratorAPI.exceptions.NotFoundException;
-import com.wojtek.api.StarWarsReportGeneratorAPI.exceptions.PlanetHasNoResidentsExceptions;
-import com.wojtek.api.StarWarsReportGeneratorAPI.exceptions.ThereIsNoFilmsForGivenCharacterException;
-import com.wojtek.api.StarWarsReportGeneratorAPI.exceptions.ThereIsNoSuchResidentException;
+import com.wojtek.api.StarWarsReportGeneratorAPI.exceptions.*;
 import com.wojtek.api.StarWarsReportGeneratorAPI.models.Report;
 import com.wojtek.api.StarWarsReportGeneratorAPI.models.ReportQuery;
 import com.wojtek.api.StarWarsReportGeneratorAPI.reposotories.ReportRepository;
@@ -23,15 +20,19 @@ public class ReportService {
     private final ReportRepository reportRepository;
     private final APIService apiService;
     private final Map<String,String> planetNamePlanetLinkMap;
+    private boolean startPhaseIsOnGoing;
 
     public ReportService(ReportRepository reportRepository, APIService apiService) {
         this.reportRepository = reportRepository;
         this.apiService = apiService;
         this.planetNamePlanetLinkMap = new HashMap<>();
+        this.startPhaseIsOnGoing = false;
     }
 
     public void createReport(Long report_id, ReportQuery reportQuery) throws Exception {
 
+            if(startPhaseIsOnGoing)
+                throw new StartPhaseIsOnGoingException("Start phase is on going now. Please retry one more time in a minute.");
 
             System.out.println(planetNamePlanetLinkMap);
 
@@ -108,6 +109,8 @@ public class ReportService {
 
     public void startPhase() throws Exception {
 
+            startPhaseIsOnGoing = true;
+
             JsonObject jsonObject = apiService.getBuilder("planets");
             String next  = jsonObject.get("next").toString();
             char pageNumber = next.toString().charAt(next.length()-2);
@@ -131,6 +134,7 @@ public class ReportService {
 
             }
 
+            startPhaseIsOnGoing = false;
 
     }
 
@@ -142,5 +146,9 @@ public class ReportService {
             planetNamePlanetLinkMap.put(planetName, planetUrl);
         }
 
+    }
+
+    public boolean isStartPhaseIsOnGoing() {
+        return startPhaseIsOnGoing;
     }
 }

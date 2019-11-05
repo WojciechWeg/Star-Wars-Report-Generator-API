@@ -18,6 +18,7 @@ public class ReportController {
     private final ReportService reportService;
     private final ReportRepository reportRepository;
 
+
     public ReportController(ReportService reportService, ReportRepository reportRepository) {
         this.reportService = reportService;
         this.reportRepository = reportRepository;
@@ -33,7 +34,6 @@ public class ReportController {
     public Report getReport(@PathVariable Long report_id) {
             return reportRepository.findById(report_id)
                     .orElseThrow(() -> new NotFoundException("No such report"));
-
     }
 
     @DeleteMapping
@@ -48,8 +48,6 @@ public class ReportController {
 
     @PutMapping({"/{report_id}"})
     public void createNewReport(@PathVariable Long report_id, @RequestBody ReportQuery reportQuery) throws Exception {
-
         reportService.createReport(report_id,reportQuery);
-
     }
 }

@@ -44,4 +44,9 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(StartPhaseIsOnGoingException.class)
+    public final ResponseEntity<ErrorDetails> handleStartPhaseIsOnGoing(StartPhaseIsOnGoingException ex, WebRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage());
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
 }
