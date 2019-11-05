@@ -5,6 +5,7 @@ import com.wojtek.api.StarWarsReportGeneratorAPI.models.Report;
 import com.wojtek.api.StarWarsReportGeneratorAPI.models.ReportQuery;
 import com.wojtek.api.StarWarsReportGeneratorAPI.reposotories.ReportRepository;
 import com.wojtek.api.StarWarsReportGeneratorAPI.services.ReportService;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,7 +44,12 @@ public class ReportController {
 
     @DeleteMapping({"/{report_id}"})
     public void deleteReportById(@PathVariable Long report_id){
-        reportRepository.deleteById(report_id);
+        try {
+            reportRepository.deleteById(report_id);
+        }catch (EmptyResultDataAccessException e){
+            throw new NotFoundException("No such report");
+        }
+
     }
 
     @PutMapping({"/{report_id}"})

@@ -29,7 +29,7 @@ public class ReportService {
         this.startPhaseIsOnGoing = false;
     }
 
-    public void createReport(Long report_id, ReportQuery reportQuery) throws Exception {
+    public Report createReport(Long report_id, ReportQuery reportQuery) throws Exception {
 
             if(startPhaseIsOnGoing)
                 throw new StartPhaseIsOnGoingException("Start phase is on going now. Please retry one more time in a minute.");
@@ -98,6 +98,7 @@ public class ReportService {
 
             reportRepository.save(report);
 
+            return report;
     }
 
     private Long retrieveIdFromLastSegment(String planetUrl) throws URISyntaxException {

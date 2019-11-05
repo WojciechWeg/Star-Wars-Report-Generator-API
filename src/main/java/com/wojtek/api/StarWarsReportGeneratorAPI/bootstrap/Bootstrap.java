@@ -20,6 +20,7 @@ public class Bootstrap implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
         reportService.startPhase();
 
         loadReports();
@@ -30,25 +31,26 @@ public class Bootstrap implements CommandLineRunner {
 
         Report report1 =  Report.builder()
                 .report_id(1L)
-                .query_criteria_character_phrase("ABC")
-                .query_criteria_planet_name("XYZ")
+                .query_criteria_character_phrase("Luke Skywalker")
+                .query_criteria_planet_name("Tatooine")
                 .film_id(2L)
-                .film_name("123")
-                .character_id(3L)
-                .character_name("Kowalski")
-                .planet_id(4L)
-                .planet_name("QWE").build();
+                .film_name("The Empire Strikes Back")
+                .character_id(1L)
+                .character_name("Luke Skywalker")
+                .planet_id(1L)
+                .planet_name("Tatooine").build();
 
         Report report2 =  Report.builder()
                 .report_id(2L)
-                .query_criteria_character_phrase("ABC")
-                .query_criteria_planet_name("XYZ")
+                .query_criteria_character_phrase("bot")
+                .query_criteria_planet_name("Bespin")
                 .film_id(2L)
-                .film_name("123")
-                .character_id(3L)
-                .character_name("ABACKI")
-                .planet_id(4L)
-                .planet_name("QWE").build();
+                .film_name("The Empire Strikes Back")
+                .character_id(26L)
+                .character_name("Lobot")
+                .planet_id(6L)
+                .planet_name("Bespin").build();
+
 
         reportRepository.save(report1);
         reportRepository.save(report2);
