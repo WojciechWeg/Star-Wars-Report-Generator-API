@@ -1,16 +1,17 @@
 package com.wojtek.api.StarWarsReportGeneratorAPI.services;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.wojtek.api.StarWarsReportGeneratorAPI.exceptions.NotFoundException;
 import com.wojtek.api.StarWarsReportGeneratorAPI.exceptions.PlanetHasNoResidentsExceptions;
+import com.wojtek.api.StarWarsReportGeneratorAPI.exceptions.ThereIsNoFilmsForGivenCharacterException;
+import com.wojtek.api.StarWarsReportGeneratorAPI.exceptions.ThereIsNoSuchResidentException;
 import com.wojtek.api.StarWarsReportGeneratorAPI.models.Report;
 import com.wojtek.api.StarWarsReportGeneratorAPI.models.ReportQuery;
 import com.wojtek.api.StarWarsReportGeneratorAPI.reposotories.ReportRepository;
 import org.springframework.stereotype.Service;
 
-
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -53,6 +54,45 @@ public class ReportService {
 
             if(residentArray.size()==0)
                 throw new PlanetHasNoResidentsExceptions("This planet has no residents.");
+
+            JsonObject residentObject=null;
+            String residentName=null;
+            Long characterId=null;
+            boolean hasBeenFound = false;
+
+            for(JsonElement residentUrl : residentArray){
+
+                characterId = retrieveIdFromLastSegment(residentUrl.toString().replaceAll("\"",""));
+                residentObject = apiService.getBuilderFullPath(residentUrl.toString().replaceAll("\"",""));
+
+                residentName = residentObject.get("name").toString();
+
+                if(residentName.contains(reportQuery.getQuery_criteria_character_phrase())){
+                    hasBeenFound = true;
+                    break;
+                }
+            }
+
+            if (!hasBeenFound)
+                throw new ThereIsNoSuchResidentException("There is no resident with given query.");
+
+            report.setCharacter_id(characterId);
+            report.setCharacter_name(residentName);
+
+            JsonArray charactersFilms = residentObject.get("films").getAsJsonArray();
+
+            if(charactersFilms.size() == 0)
+                throw new ThereIsNoFilmsForGivenCharacterException("This character has no films.");
+
+
+            Long filmId = retrieveIdFromLastSegment(charactersFilms.get(0).toString().replaceAll("\"",""));
+
+            JsonObject filmObject =  apiService.getBuilderFullPath(charactersFilms.get(0).toString().replaceAll("\"",""));
+
+            String filmName = filmObject.get("title").toString();
+
+            report.setFilm_id(filmId);
+            report.setFilm_name(filmName);
 
 
             reportRepository.save(report);
