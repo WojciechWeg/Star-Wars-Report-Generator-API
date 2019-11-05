@@ -66,7 +66,7 @@ public class ReportService {
                 characterId = retrieveIdFromLastSegment(residentUrl.toString().replaceAll("\"",""));
                 residentObject = apiService.getBuilderFullPath(residentUrl.toString().replaceAll("\"",""));
 
-                residentName = residentObject.get("name").toString();
+                residentName = residentObject.get("name").toString().replaceAll("\"","");
 
                 if(residentName.contains(reportQuery.getQuery_criteria_character_phrase())){
                     hasBeenFound = true;
@@ -90,7 +90,7 @@ public class ReportService {
 
             JsonObject filmObject =  apiService.getBuilderFullPath(charactersFilms.get(0).toString().replaceAll("\"",""));
 
-            String filmName = filmObject.get("title").toString();
+            String filmName = filmObject.get("title").toString().replaceAll("\"","");
 
             report.setFilm_id(filmId);
             report.setFilm_name(filmName);
