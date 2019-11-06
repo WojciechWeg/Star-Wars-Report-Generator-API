@@ -11,7 +11,7 @@ stored in database. Otherwise, existing report is updated.
 - PUT request body JSON - query criteria:
 
 `curl "http://localhost:8080/report/4" -i -X PUT -H "Content-Type: application/json" -d "{"query_criteria_character_phrase": "bot","query_criteria_planet_name": "Bespin"}"`
-```json
+```
 {
 “query_criteria_character_phrase”: “CHARACTER_PHRASE”,
 “query_criteria_planet_name”: “PLANET_NAME”
@@ -34,7 +34,7 @@ stored in database. Otherwise, existing report is updated.
 `curl "http://localhost:8080/report/" -i -X GET`
 
 
-```json
+```
 [{
 “report_id”: “{report_id},
 “query_criteria_character_phrase”: “CHARACTER_PHRASE”,
@@ -52,7 +52,7 @@ stored in database. Otherwise, existing report is updated.
  
 `curl "http://localhost:8080/report/" -i -X GET`
 
-```json
+```
 {
 “report_id”: “{report_id},
 “query_criteria_character_phrase”: “CHARACTER_PHRASE”,
