@@ -83,6 +83,8 @@ Report table columns:
 query_criteria_planet_name, film_id, film_name, character_id,
 character_name, planet_id, planet_name`
 
+Flowchart shown below represents solution and how report is generated.
+
 ![Flowchart_image](Star_Wars_API_Flow_chart_new.jpg)
 
 
