@@ -3,7 +3,7 @@
 Purpose of this project was to implement an REST API that creates a report 
 for given input. 
 
-###PUT on /report/{report_id} 
+### PUT on /report/{report_id} 
 - generates report of report_id and saves it in database
 table.
 - If report of given report_id does not exist, then new report is created and
