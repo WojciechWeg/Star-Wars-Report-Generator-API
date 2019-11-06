@@ -1,4 +1,4 @@
-# Star Wasr Report Generator API [![CircleCI](https://circleci.com/gh/WojciechWeg/Star-Wars-Report-Generator-API.svg?style=svg)](https://circleci.com/gh/WojciechWeg/Star-Wars-Report-Generator-API)
+# Star Wars Report Generator API [![CircleCI](https://circleci.com/gh/WojciechWeg/Star-Wars-Report-Generator-API.svg?style=svg)](https://circleci.com/gh/WojciechWeg/Star-Wars-Report-Generator-API)
 
 Purpose of this project was to implement an REST API that creates a report 
 for given input. 
@@ -83,7 +83,7 @@ Report table columns:
 query_criteria_planet_name, film_id, film_name, character_id,
 character_name, planet_id, planet_name`
 
-![Flowchart_image] (Star_Wars_API_Flow_chart_new.jpg)
+![Flowchart_image](Star_Wars_API_Flow_chart_new.jpg)
 
 
 
