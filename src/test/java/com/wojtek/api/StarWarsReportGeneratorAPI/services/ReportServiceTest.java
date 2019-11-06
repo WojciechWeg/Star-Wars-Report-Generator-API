@@ -79,7 +79,7 @@ class ReportServiceTest {
     void createReport() throws Exception {
 
         Report returnedReport = reportService.createReport(3L,startQuery);
-
+        
         assertEquals(Long.valueOf(3L), returnedReport.getReport_id());
         assertEquals("Tatooine", returnedReport.getPlanet_name());
         assertEquals("Shmi Skywalker", returnedReport.getCharacter_name());

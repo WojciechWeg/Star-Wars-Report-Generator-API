@@ -84,3 +84,14 @@ query_criteria_planet_name, film_id, film_name, character_id,
 character_name, planet_id, planet_name`
 
 ![Flowchart_image] (Star_Wars_API_Flow_chart.jpg)
+
+
+
+Tools used:
+- Java 1.8
+- In mememory H2 database
+- Project lombok
+- JUnit 5
+- GSON
+- Spring boot starter JPA
+- Spring boot starter web
