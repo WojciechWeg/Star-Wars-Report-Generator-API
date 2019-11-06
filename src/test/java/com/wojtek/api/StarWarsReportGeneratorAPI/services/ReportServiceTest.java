@@ -31,7 +31,7 @@ class ReportServiceTest {
     @BeforeEach
     void init() throws Exception {
 
-        reportService = new ReportService(reportRepository,new APIService());
+        reportService = new ReportService(reportRepository);
 
         reportList = new ArrayList<>();
 

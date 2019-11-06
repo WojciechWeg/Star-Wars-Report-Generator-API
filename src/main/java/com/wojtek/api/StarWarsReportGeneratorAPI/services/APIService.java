@@ -63,13 +63,7 @@ public class APIService {
 
     public JsonObject deserialize(String json) {
         Gson gson = new Gson();
-        JsonObject jsonClass = gson.fromJson(json, JsonObject.class);
-        return jsonClass;
-    }
-
-    public JsonObject innerRequest(String uri) throws IOException {
-        HttpGet httpGet = new HttpGet(uri);
-        return getRequest(httpGet);
+        return gson.fromJson(json, JsonObject.class);
     }
 
 }

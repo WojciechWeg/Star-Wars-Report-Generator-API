@@ -27,7 +27,7 @@ public class Bootstrap implements CommandLineRunner {
 
     }
 
-    private void loadReports() throws Exception {
+    private void loadReports() {
 
         Report report1 =  Report.builder()
                 .report_id(1L)

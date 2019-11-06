@@ -27,7 +27,7 @@ public class ReportController {
 
     @GetMapping
     public List getListOfReports(){
-        return (List) reportRepository.findAll();
+        return reportRepository.findAll();
 
     }
 
