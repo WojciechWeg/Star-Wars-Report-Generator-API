@@ -10,7 +10,7 @@ table.
 stored in database. Otherwise, existing report is updated.
 - PUT request body JSON - query criteria:
 
-```json
+```
 {
 “query_criteria_character_phrase”: “CHARACTER_PHRASE”,
 “query_criteria_planet_name”: “PLANET_NAME”
@@ -26,7 +26,7 @@ stored in database. Otherwise, existing report is updated.
 ### GET on /report 
 - returns all report data as JSON:
 
-```json
+```
 [{
 “report_id”: “{report_id},
 “query_criteria_character_phrase”: “CHARACTER_PHRASE”,
@@ -42,7 +42,7 @@ stored in database. Otherwise, existing report is updated.
 ### GET on /report/{report_id}
  - returns report_id data as JSON:
 
-```json
+```
 {
 “report_id”: “{report_id},
 “query_criteria_character_phrase”: “CHARACTER_PHRASE”,
@@ -73,4 +73,6 @@ Report table columns:
 query_criteria_planet_name, film_id, film_name, character_id,
 character_name, planet_id, planet_name`
 
-![Flowchart_image] (Star_Wars_API_Flow_chart.jpg)
+Flowchart shown below represents solution and how report is generated.
+
+![Flowchart_image](Star_Wars_API_Flow_chart.jpg)
