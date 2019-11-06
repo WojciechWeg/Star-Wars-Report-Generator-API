@@ -22,9 +22,9 @@ public class ReportService {
     private final Map<String,String> planetNamePlanetLinkMap;
     private boolean startPhaseIsOnGoing;
 
-    public ReportService(ReportRepository reportRepository, APIService apiService) {
+    public ReportService(ReportRepository reportRepository) {
         this.reportRepository = reportRepository;
-        this.apiService = apiService;
+        this.apiService = new APIService();
         this.planetNamePlanetLinkMap = new HashMap<>();
         this.startPhaseIsOnGoing = false;
     }
@@ -33,8 +33,6 @@ public class ReportService {
 
             if(startPhaseIsOnGoing)
                 throw new StartPhaseIsOnGoingException("Start phase is on going now. Please retry one more time in a minute.");
-
-            System.out.println(planetNamePlanetLinkMap);
 
             Report report = Report.builder()
                     .report_id(report_id)
@@ -114,7 +112,7 @@ public class ReportService {
 
             JsonObject jsonObject = apiService.getBuilder("planets");
             String next  = jsonObject.get("next").toString();
-            char pageNumber = next.toString().charAt(next.length()-2);
+            char pageNumber = next.charAt(next.length()-2);
 
             while(!next.equals("null")) {
                 JsonArray planetArray = jsonObject.getAsJsonArray("results");
@@ -123,7 +121,7 @@ public class ReportService {
 
                 jsonObject = apiService.getBuilder("planets/?page="+pageNumber);
                 next = jsonObject.get("next").toString();
-                pageNumber = next.toString().charAt(next.length()-2);
+                pageNumber = next.charAt(next.length()-2);
 
                 if(next.equals("null")){
                     planetArray = jsonObject.getAsJsonArray("results");
@@ -149,7 +147,4 @@ public class ReportService {
 
     }
 
-    public boolean isStartPhaseIsOnGoing() {
-        return startPhaseIsOnGoing;
-    }
 }
