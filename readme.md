@@ -10,6 +10,7 @@ table.
 stored in database. Otherwise, existing report is updated.
 - PUT request body JSON - query criteria:
 
+`curl "http://localhost:8080/report/4" -i -X PUT -H "Content-Type: application/json" -d "{"query_criteria_character_phrase": "bot","query_criteria_planet_name": "Bespin"}"`
 ```json
 {
 “query_criteria_character_phrase”: “CHARACTER_PHRASE”,
@@ -20,11 +21,18 @@ stored in database. Otherwise, existing report is updated.
 ### DELETE on /report/{report_id}
 - deletes report of report_id from database.
 
+`curl "http://localhost:8080/report/1" -i -X DELETE`
+
 ### DELETE on /report
  - deletes all reports from database
+ 
+ `curl "http://localhost:8080/report/" -i -X DELETE`
 
 ### GET on /report 
 - returns all report data as JSON:
+
+`curl "http://localhost:8080/report/" -i -X GET`
+
 
 ```json
 [{
@@ -41,6 +49,8 @@ stored in database. Otherwise, existing report is updated.
 ```
 ### GET on /report/{report_id}
  - returns report_id data as JSON:
+ 
+`curl "http://localhost:8080/report/" -i -X GET`
 
 ```json
 {
