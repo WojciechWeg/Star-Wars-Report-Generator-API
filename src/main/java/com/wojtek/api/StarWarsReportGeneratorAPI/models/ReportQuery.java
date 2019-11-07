@@ -14,6 +14,4 @@ public class ReportQuery {
     private String query_criteria_character_phrase;
     private String query_criteria_planet_name;
 
-
-
 }

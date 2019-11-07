@@ -19,14 +19,14 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class ReportServiceTest {
 
-    ReportService reportService;
+    private ReportService reportService;
 
     @Mock
-    ReportRepository reportRepository;
+    private ReportRepository reportRepository;
 
-    Report report1,report2, report3;
-    List<Report> reportList;
-    ReportQuery startQuery;
+    private Report report1,report2, report3;
+    private List<Report> reportList;
+    private ReportQuery startQuery;
 
     @BeforeEach
     void init() throws Exception {

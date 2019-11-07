@@ -42,9 +42,9 @@ class ReportControllerTest {
     @MockBean
     private ReportRepository reportRepository;
 
-    Report report1,report2, report3;
-    List<Report> reportList;
-    ReportQuery startQuery;
+    private Report report1,report2, report3;
+    private List<Report> reportList;
+    private ReportQuery startQuery;
 
     @BeforeEach
     void init(){

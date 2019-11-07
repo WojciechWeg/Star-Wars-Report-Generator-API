@@ -83,7 +83,6 @@ public class ReportService {
             if(charactersFilms.size() == 0)
                 throw new ThereIsNoFilmsForGivenCharacterException("This character has no films.");
 
-
             Long filmId = retrieveIdFromLastSegment(charactersFilms.get(0).toString().replaceAll("\"",""));
 
             JsonObject filmObject =  apiService.getBuilderFullPath(charactersFilms.get(0).toString().replaceAll("\"",""));

@@ -18,27 +18,27 @@ public class Report {
     private Long report_id;
 
     @Column(name = "query_criteria_character_phrase")
-    String query_criteria_character_phrase;
+    private String query_criteria_character_phrase;
 
     @Column(name = "query_criteria_planet_name")
-    String query_criteria_planet_name;
+    private String query_criteria_planet_name;
 
     @Column(name = "film_id")
-    Long film_id;
+    private Long film_id;
 
     @Column(name = "film_name")
-    String film_name;
+    private String film_name;
 
     @Column(name = "character_id")
-    Long character_id;
+    private Long character_id;
 
     @Column(name = "character_name")
-    String character_name;
+    private String character_name;
 
     @Column(name = "planet_id")
-    Long planet_id;
+    private Long planet_id;
 
     @Column(name = "planter_name")
-    String planet_name;
+    private String planet_name;
 
 }
