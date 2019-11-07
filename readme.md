@@ -88,6 +88,9 @@ Flowchart shown below represents solution and how report is generated.
 ![Flowchart_image](Star_Wars_API_Flow_chart_new.jpg)
 
 
+### How to run
+To start the project locally use start.bat file.
+
 
 Tools used:
 - Java 1.8
