@@ -15,7 +15,6 @@ import javax.persistence.*;
 public class Report {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long report_id;
 
     @Column(name = "query_criteria_character_phrase")
