@@ -100,3 +100,5 @@ Tools used:
 - GSON
 - Spring boot starter JPA
 - Spring boot starter web
+
+Made with much <3
